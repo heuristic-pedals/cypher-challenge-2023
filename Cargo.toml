@@ -8,3 +8,4 @@ name = "decode"
 path = "src/lib.rs"
 
 [dependencies]
+argparse = "0.2.2"
