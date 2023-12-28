@@ -1,5 +1,5 @@
-use decode::technique::substitution::caesar;
+mod challenges;
 
 fn main() {
-    caesar::print_hello_world();
+    challenges::chapter01::part_a();
 }
