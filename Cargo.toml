@@ -1,0 +1,10 @@
+[package]
+name = "cypher-challenge-2023"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "decode"
+path = "src/lib.rs"
+
+[dependencies]
