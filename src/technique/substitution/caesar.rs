@@ -5,7 +5,7 @@ use std::fs::read_to_string;
 #[derive(Debug)]
 pub struct Caesar {
     _coded_input: String,
-    pub key: Option<u8>,
+    key: Option<u8>,
 }
 
 impl Caesar {
@@ -17,5 +17,8 @@ impl Caesar {
         println!("Decoding a caesar cypher...");
         self.key = Some(10);
         String::from("test")
+    }
+    pub fn key(& self) -> Option<u8> {
+        self.key
     }
 }
