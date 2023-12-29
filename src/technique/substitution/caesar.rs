@@ -1,3 +1,4 @@
+use std::io;
 use std::path::Path;
 use std::fs::read_to_string;
 
@@ -8,17 +9,9 @@ pub struct Caesar {
 }
 
 impl Caesar {
-    pub fn init(input_path: &Path) -> Caesar {
-        let input = match read_to_string(input_path) {
-            Ok(contents) => contents,
-            Err(error) => {
-                panic!("An error occured when using `input_path`: {}", error)
-            }
-        };
-        Caesar {
-            _coded_input: input,
-            key: None,
-        }
+    pub fn init(input_path: &Path) -> Result<Caesar, io::Error> {
+        let input = read_to_string(input_path)?;
+        Ok(Caesar { _coded_input: input,key: None })
     }
     pub fn decode(&mut self) -> String {
         println!("Decoding a caesar cypher...");
