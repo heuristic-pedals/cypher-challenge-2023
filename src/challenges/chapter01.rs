@@ -7,8 +7,8 @@ pub fn part_a(input_path: &Path) {
         Ok(initialised) => initialised,
         Err(error) => panic!("Unable to initialise Caesar decoder {}", error)
     };
-    dbg!(shift.key());
+
     let decoded = shift.decode();
-    dbg!(shift.key());
+
     println!("Decoded input: {}", decoded);
 }
