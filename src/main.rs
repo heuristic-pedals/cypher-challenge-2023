@@ -14,6 +14,7 @@ fn main() {
     let mut chapter = String::new();
     let mut part = String::new(); // set part A as default
     let mut input_path = String::new();
+    let mut output_path = String::new();
     const VALID_PARTS: [&str; 2] = ["A", "B"]; // created for print statement
 
     {
@@ -29,6 +30,8 @@ fn main() {
         ap.refer(&mut input_path)
             .add_argument("input_path", Store, "Path to input file.")
             .required();
+        ap.refer(&mut output_path)
+            .add_option(&["-o", "--output-path"], Store, "Path to write decoded output.");
         ap.parse_args_or_exit();
     }
 
@@ -58,10 +61,11 @@ fn main() {
             exit(0);
         }
     };
+    let output = Path::new(&output_path);
 
     // execute requested options
     match (chapter_number, chapter_part) {
-        (1, Part::A) => challenges::chapter01::part_a(input),
+        (1, Part::A) => challenges::chapter01::part_a(input, output),
         _ => {
             println!("Unexpected value for `chapter`: {}.", chapter);
             exit(0);

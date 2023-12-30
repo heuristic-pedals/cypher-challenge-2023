@@ -1,7 +1,7 @@
 use decode::technique::substitution::caesar;
 use std::path::Path;
 
-pub fn part_a(input_path: &Path) {
+pub fn part_a(input_path: &Path, output_path: &Path) {
     println!("Running C01, Part A, using {:?}", input_path);
     let mut shift = match caesar::Caesar::init(input_path) {
         Ok(initialised) => initialised,
@@ -9,6 +9,10 @@ pub fn part_a(input_path: &Path) {
     };
 
     let decoded = shift.decode();
+    println!("Decoded Input: {}", decoded);
 
-    println!("Decoded input: {}", decoded);
+    match shift.write_decoded_input(&output_path) {
+        Ok(()) => (),
+        Err(error) => panic!("IO error when writing decoded input: {error}")
+    }
 }

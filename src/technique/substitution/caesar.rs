@@ -1,11 +1,12 @@
 use std::collections::HashMap;
-use std::fs::read_to_string;
+use std::fs::{read_to_string, self};
 use std::io;
 use std::path::Path;
 
 #[derive(Debug)]
 pub struct Caesar {
     _coded_input: String,
+    _decoded_input: Option<String>,
     key: Option<i16>,
 }
 
@@ -14,6 +15,7 @@ impl Caesar {
         let input = read_to_string(input_path)?;
         Ok(Caesar {
             _coded_input: input,
+            _decoded_input: None,
             key: None,
         })
     }
@@ -30,7 +32,9 @@ impl Caesar {
             .map(|x| Caesar::map_char(*x, key))
             .collect::<Vec<char>>();
 
-        String::from_iter(decoded_input)
+        let decoded_input = String::from_iter(decoded_input);
+        self._decoded_input = Some(decoded_input.clone());
+        decoded_input
     }
 
     fn most_common_uppercase_ascii(bytes_iter: &std::slice::Iter<'_, u8>) -> u8 {
@@ -53,7 +57,19 @@ impl Caesar {
         }
         (((coded_char as i16 - 65 + key) % 26 + 26) % 26 + 65) as u8 as char
     }
+
     pub fn key(&self) -> Option<i16> {
         self.key
+    }
+
+    pub fn write_decoded_input(& self, output_path: &Path) -> Result<(), io::Error> {
+
+        match &self._decoded_input {
+            Some(decoded_input) => fs::write(output_path, decoded_input),
+            None => {
+                println!("An input has not been decoded. Call `init` and `decode` beforehand.");
+                Ok(())
+            }
+        }
     }
 }
