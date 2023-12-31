@@ -1,5 +1,5 @@
 use std::collections::HashMap;
-use std::fs::{read_to_string, self};
+use std::fs::{self, create_dir_all, read_to_string};
 use std::io;
 use std::path::Path;
 use std::str::Chars;
@@ -63,7 +63,15 @@ impl Caesar {
         self.key
     }
 
-    pub fn write_decoded_input(& self, output_path: &Path) -> Result<(), io::Error> {
+    pub fn write_decoded_input(&self, output_path: &Path) -> Result<(), io::Error> {
+        let parent_dir = match &output_path.parent() {
+            Some(dir) => dir,
+            None => Path::new("/"),
+        };
+        if !parent_dir.exists() {
+            create_dir_all(parent_dir)?;
+        }
+
         match &self._decoded_input {
             Some(decoded_input) => fs::write(output_path, decoded_input),
             None => {

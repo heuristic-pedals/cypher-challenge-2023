@@ -13,6 +13,6 @@ pub fn part_a(input_path: &Path, output_path: &Path) {
 
     match shift.write_decoded_input(&output_path) {
         Ok(()) => (),
-        Err(error) => panic!("IO error when writing decoded input: {error}")
+        Err(error) => panic!("IO error when writing decoded input: {error}"),
     }
 }
