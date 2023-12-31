@@ -1,5 +1,5 @@
 mod challenges;
-use argparse::{ArgumentParser, Store};
+use argparse::{ArgumentParser, Store, StoreTrue};
 use std::path::Path;
 use std::process::exit;
 
@@ -15,6 +15,7 @@ fn main() {
     let mut part = String::new(); // set part A as default
     let mut input_path = String::new();
     let mut output_path = String::new();
+    let mut print_decoded = false;
     const VALID_PARTS: [&str; 2] = ["A", "B"]; // created for print statement
 
     {
@@ -33,6 +34,8 @@ fn main() {
         ap.refer(&mut output_path)
             .add_argument("output_path", Store, "Path to write decoded output.")
             .required();
+        ap.refer(&mut print_decoded)
+            .add_option(&["-p", "--print-decoded"], StoreTrue, "Print decoded input to screen.");
         ap.parse_args_or_exit();
     }
 
@@ -66,7 +69,7 @@ fn main() {
 
     // execute requested options
     match (chapter_number, chapter_part) {
-        (1, Part::A) => challenges::chapter01::part_a(input, output),
+        (1, Part::A) => challenges::chapter01::part_a(input, output, print_decoded),
         _ => {
             println!("Unexpected value for `chapter`: {}.", chapter);
             exit(0);
