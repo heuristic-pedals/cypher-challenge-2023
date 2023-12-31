@@ -31,7 +31,8 @@ fn main() {
             .add_argument("input_path", Store, "Path to input file.")
             .required();
         ap.refer(&mut output_path)
-            .add_option(&["-o", "--output-path"], Store, "Path to write decoded output.");
+            .add_argument("output_path", Store, "Path to write decoded output.")
+            .required();
         ap.parse_args_or_exit();
     }
 
