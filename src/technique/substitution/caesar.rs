@@ -26,8 +26,8 @@ impl Caesar {
         let input_chars: Chars<'_> = self._coded_input.chars();
 
         // 69 is the E char - calculate shift needed to map most common onto this
-        let most_common_bytes = Caesar::most_common_uppercase_ascii(&input_chars);
-        let key: i16 = 69 - most_common_bytes as i16;
+        let most_common_char = Caesar::most_common_uppercase_ascii(&input_chars);
+        let key: i16 = 69 - most_common_char as i16;
         self.key = Some(key);
         let decoded_input = input_chars
             .map(|x| Caesar::map_char(x, key))
