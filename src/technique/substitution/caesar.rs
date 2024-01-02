@@ -12,7 +12,7 @@ pub struct Caesar {
 }
 
 impl Caesar {
-    pub fn init(input_path: &Path) -> Result<Caesar, io::Error> {
+    pub fn new(input_path: &Path) -> Result<Caesar, io::Error> {
         let input = read_to_string(input_path)?;
         Ok(Caesar {
             _coded_input: input,
